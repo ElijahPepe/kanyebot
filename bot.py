@@ -13,7 +13,7 @@ def generate(l):
 		yield from itertools.product(*([l] * num_item[0]))
 
 def test(test_email):
-		time.sleep(1)
+		time.sleep(.5)
 		email = test_email + "@gmail.com"
 		timestamp = round(int(time.time()))
 		authorization = email + ':' + str(timestamp)
