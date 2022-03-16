@@ -7,7 +7,7 @@ import itertools
 range_list = list(range(0, 16))
 character_list = list(string.ascii_lowercase)
 number_list = list(range(0, 99))
-wordlist = open("wordlist.txt","r").read().split("\n")
+word_list = open("wordlist.txt","r").read().split("\n")
 
 emails = []
 
@@ -33,7 +33,7 @@ def test(test_email):
 			print(email)
 			emails.append(email)
 
-for x in wordlist:
+for x in word_list:
 		test(x)
 
 for x in generate("abcdefghijklmnopqrstuvwxyz"):
