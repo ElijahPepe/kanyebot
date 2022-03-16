@@ -12,6 +12,7 @@ def foo(l):
 		yield from itertools.product(*([l] * numItem[0])) 
 
 for x in foo("abcdefghijklmnopqrstuvwxyz"):
+		time.sleep(1)
 		email = ''.join(x) + "@gmail.com"
 		timestamp = round(int(time.time()))
 		authorization = email + ':' + str(timestamp)
