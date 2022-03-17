@@ -3,6 +3,7 @@ import time
 import base64
 import string
 import itertools
+import sys
 
 range_list = list(range(0, 16))
 character_list = list(string.ascii_lowercase)
