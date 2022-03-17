@@ -15,3 +15,9 @@ cd kanyebot
 pip install -r requirements.txt
 python bot.py
 ```
+
+You can also specify a custom wordlist as so:
+
+```sh
+python bot.py nameoffike.txt
+```
