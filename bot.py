@@ -45,7 +45,7 @@ for x in number_list:
 		test(x)
 
 if args[0]:
-		for x in open(args[0],"r").read().split("\n")
+		for x in open(args[0],"r").read().split("\n"):
 			test(x)
 
 with open('emails.txt', 'w') as f:
