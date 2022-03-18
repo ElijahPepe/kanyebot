@@ -69,15 +69,15 @@ def main():
 	for x in word_list:
 			test(x)
 
+	for x in generate("abcdefghijklmnopqrstuvwxyz"):
+			test(''.join(x))
+
 	for x in number_list:
 			test(x)
 
 	if args[0]:
 			for x in open(args[0],"r").read().split("\n"):
 				test(x)
-
-	for x in generate("abcdefghijklmnopqrstuvwxyz"):
-			test(''.join(x))
 
 	with open('emails.txt', 'w') as f:
   	  for item in emails:
