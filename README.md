@@ -19,5 +19,5 @@ python bot.py
 You can also specify a custom wordlist as so:
 
 ```sh
-python bot.py nameoffile.txt
+python bot.py -w nameoffile.txt
 ```
