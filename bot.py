@@ -1,5 +1,7 @@
+from argparse import RawTextHelpFormatter
 from colorama import Fore, Style
 import requests
+import argparse
 import time
 import base64
 import string
@@ -14,12 +16,14 @@ args = sys.argv
 
 emails = []
 
+version = "1.0.0"
+
 def generate(l):
 	for num_item in enumerate(range_list):
 		yield from itertools.product(*([l] * num_item[0]))
 
-def test(test_email):
-		time.sleep(.25)
+def test(test_email, pause):
+		time.sleep(pause)
 		email = str(test_email) + "@gmail.com"
 		timestamp = round(int(time.time()))
 		authorization = email + ':' + str(timestamp)
@@ -51,36 +55,69 @@ def logo():
 v%s
 	""" % "1.0.0"
 
+def arguments():
+	parser = argparse.ArgumentParser(prog="knockpy", description="kanyebot", formatter_class=RawTextHelpFormatter)
+	parser.add_argument("-v", "--version", action="version", version="v" + version)
+	parser.add_argument("--no-wordlist", help="Ignore any word lists", action="store_true", required=False)
+	parser.add_argument("--no-numberlist", help="Ignore the number list", action="store_true", required=False)
+	parser.add_argument("--no-characterlist", help="Ignore the character list", action="store_true", required=False)
+	parser.add_argument("-w", help="Adds a custom wordlist to the list", dest="wordlist", required=False)
+	parser.add_argument("-p", help="Sets the pause after each search", nargs=1, dest="pause", type=int, required=False)
+
+	args = parser.parse_args()
+
+	return args
+
 def header():
+	args = arguments()
 	line = "Emails: "
-	count = len(number_list) + len(word_list)
+	count = 0
 
-	if args[0]:
-		count = count + len(open(args[0],"r").read().split("\n"))
+	if args.wordlist and not args.no_wordlist:
+		count = len(open(args.wordlist,"r").read().split("\n"))
 
-	return Style.BRIGHT + Fore.YELLOW + line + Fore.CYAN + str(count) + "+" + Style.RESET_ALL
+	if not args.no_wordlist:
+		count = count + len(word_list)
+
+	if not args.no_characterlist:
+		count = count + 43608742900000000000000
+
+	if not args.no_numberlist:
+		count = count + len(number_list)
+
+	return Style.BRIGHT + Fore.YELLOW + line + Fore.CYAN + str(count) + Style.RESET_ALL
 
 def main():
+	args = arguments()
+	
 	print(logo())
 
 	print(header())
 	print(Style.RESET_ALL)
 
-	for x in word_list:
-			test(x)
+	pause = 0.25
 
-	for x in generate("abcdefghijklmnopqrstuvwxyz"):
-			test(''.join(x))
+	if args.pause is not None:
+		pause = args.pause[0]
 
-	for x in number_list:
-			test(x)
+	if args.wordlist and not args.no_wordlist:
+		for x in open(args.wordlist,"r").read().split("\n"):
+			test(x, pause)
 
-	if args[0]:
-			for x in open(args[0],"r").read().split("\n"):
-				test(x)
+	if not args.no_wordlist:
+		for x in word_list:
+			test(x, pause)
+
+	if not args.no_characterlist:
+		for x in generate("abcdefghijklmnopqrstuvwxyz"):
+			test(''.join(x, pause))
+
+	if not args.no_numberlist:
+		for x in number_list:
+			test(x, pause)
 
 	with open('emails.txt', 'w') as f:
-  	  for item in emails:
-    	    f.write("%s\n" % item)
+		for item in emails:
+			f.write("%s\n" % item)
 
 main()
