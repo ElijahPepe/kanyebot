@@ -1,4 +1,4 @@
-**NOTICE:** As of March 25, 2022, a password is now required to create an account used on stemplayer.com and various emails (likely the ones in this script) have been taken down. This code is likely to stop working soon and probably won't get updated in the near future due to the time necessary.
+**NOTICE:** As of March 25, 2022, a password is now required to create an account used on stemplayer.com and various emails (likely the ones in this script) have been taken down. This code is likely to stop working soon and probably won't get updated in the near future due to the time necessary to refine the script to work with future updates.
 
 # kanyebot
 
